@@ -8,9 +8,10 @@ export default function tiendas({ dataUser, dataShop }) {
 
     const [menu, setMenu] = useState("");
     const [modal, setModal] = useState("");
-    const [shop,setShop]=useState({
-        name:'',
-        direccion:'',
+    const [shop, setShop] = useState({
+        id: '',
+        name: '',
+        direccion: '',
     })
 
     const handleSearch = () => {
@@ -20,7 +21,7 @@ export default function tiendas({ dataUser, dataShop }) {
     const viewModal = () => {
         setModal("true")
     }
-    
+
 
     const handleModal = () => {
         setModal("")
@@ -36,7 +37,7 @@ export default function tiendas({ dataUser, dataShop }) {
                             {dataShop.data.map(shops => (
                                 <div className="shadow-md rounded-3xl justify-self-center w-full" key={shops._id}>
                                     <img className="cursor-pointer bg-cover bg-center w-full rounded-t-3xl" src="/edited2.png" alt="Sunset in the mountains" width="300"
-                                        height="300" onClick={() =>{setMenu(shops.name),setShop({name:shops.name,direccion:shops.address})}   }/>
+                                        height="300" onClick={() => { setMenu(shops.name), setShop({ id: shops._id, name: shops.name, direccion: shops.address }) }} />
                                     <div className="px-6 py-4">
                                         <div className="font-bold text-xl mb-2">{shops.name}</div>
                                         <h1 className="dark:text-gray-200 text-gray-900 text-base">
@@ -57,7 +58,7 @@ export default function tiendas({ dataUser, dataShop }) {
                             </div>
                         </div>) : (<div></div>)}
 
-                    {menu !== "" ? (<ViewTienda handleSearch={handleSearch}  shop={shop}/>) : (<div></div>)}
+                        {menu !== "" ? (<ViewTienda handleSearch={handleSearch} shop={shop} />) : (<div></div>)}
                     </div>
                     {modal == "" ? (<></>) : (<NewTienda handleModal={handleModal} />)}
 

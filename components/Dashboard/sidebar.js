@@ -30,7 +30,7 @@ export default function sidebar({ children, active, color,username }) {
         {/* 
         !----------------------- Dashboard -----------------------!
         */}
-        <div className="flex md:flex-row h-screen flex-col dark:bg-gray-800">
+        <div className="flex md:flex-row h-screen flex-col dark:bg-pruebaA4">
 
             <div className="md:flex-grow-0 md:border-2 w-20 flex md:flex-col flex-row fixed bottom-0 md:relative h-12 md:h-auto flex-grow overflow-y-visible">
                 {/* 
@@ -62,22 +62,22 @@ export default function sidebar({ children, active, color,username }) {
 
                         <li className={`menu-opciones efectohover hover:border-red-700  ${activeOption == 'Inicio' ? ('border-2 border-red-700 rounded-lg md:transform-none transform -translate-y-0.5') : ('border-transparent border-2')}`}>
                             <Link href="/dashboard"><a><IconInicio /></a></Link>
-                            <Tooltip name="Inicio" nameTooltip="tooltipInicio" />
+                            {/* <Tooltip name="Inicio" nameTooltip="tooltipInicio" /> */}
                         </li>
 
                         <li className={`menu-opciones efectohover hover:border-yellow-400 ${activeOption == 'Productos' ? ('border-2 border-yellow-400 rounded-lg md:transform-none transform -translate-y-0.5') : ('border-transparent border-2')}`}>
                             <Link href="/dashboard/productos"><a><IconProductos /></a></Link>
-                            <Tooltip name="Productos" nameTooltip="tooltipProducto" />
+                            {/* <Tooltip name="Productos" nameTooltip="tooltipProducto" /> */}
                         </li>
 
                         <li className={`menu-opciones efectohover hover:border-green-700 ${activeOption == 'Tiendas' ? ('border-2 border-green-800 rounded-lg md:transform-none transform -translate-y-0.5') : ('border-transparent border-2')}`}>
                             <Link href="/dashboard/tiendas"><a><IconTiendas /></a></Link>
-                            <Tooltip name="Tiendas" nameTooltip="tooltipTienda" />
+                            {/* <Tooltip name="Tiendas" nameTooltip="tooltipTienda" /> */}
                         </li>
 
                         <li className={`menu-opciones efectohover hover:border-blue-700 ${activeOption == 'Config' ? ('border-2 border-blue-700 rounded-lg md:transform-none transform -translate-y-0.5') : ('border-transparent border-2')}`}>
                             <Link href="/dashboard/configuracion"><a><IconConfiguracion /></a></Link>
-                            <Tooltip name="Configuracion" nameTooltip="tooltipConfiguracion" />
+                            {/* <Tooltip name="Configuracion" nameTooltip="tooltipConfiguracion" /> */}
                         </li>
 
                     </ul>

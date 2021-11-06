@@ -1,12 +1,40 @@
 
 import { useState } from 'react'
+import ListProductos from '../Productos/listProductos';
+import ListEmpleado from './Empleados/ListEmpleado';
+import NewEmpleados from './newEmpleados';
 
 
 export default function viewTienda(props) {
 
-    console.log(props)
     const { handleSearch } = props
-    const [menuopciones, setMenuopciones] = useState("");
+    const [menuopciones, setMenuopciones] = useState("Productos");
+    const [modal, setModal] = useState("");
+
+    const viewModal = () => {
+        setModal("true")
+    }
+
+    const handleModal = () => {
+        setModal("")
+    }
+    const change = function (event) {
+
+        const opcion = event.target.value
+
+        if (opcion) {
+
+            setMenuopciones(event.target.value);
+
+        } else {
+
+            setMenuopciones(event.target.innerHTML);
+
+        }
+
+
+
+    }
     return (<>
 
         <div className=" justify-center justify-items-center justify-self-center">
@@ -34,28 +62,29 @@ export default function viewTienda(props) {
                     <h5 className="text-center mb-5 font-bold text-2xl">Menu de opciones</h5>
                     <div className="grid grid-cols-5 text-center justify-items-center">
                         <div className="w-3/4 rounded-2xl shadow-md fondo5 bg-gray-100 dark:bg-gray-600 dark:shadow-md text-center cursor-pointer dark:text-gray-200 text-gray-900">
-                            <div className="text-center p-2">Productos</div>
+                            <div className="text-center p-2" onClick={change}>Productos</div>
                         </div>
                         <div className="w-3/4 rounded-2xl shadow-md fondo5 bg-gray-100 dark:bg-gray-600 dark:shadow-md text-center cursor-pointer dark:text-gray-200 text-gray-900">
-                            <div className="text-center p-2">Kardex</div>
+                            <div className="text-center p-2" onClick={change}>Kardex</div>
                         </div>
                         <div className=" w-3/4 rounded-2xl shadow-md fondo5 bg-gray-100 dark:bg-gray-600 dark:shadow-md text-center cursor-pointer dark:text-gray-200 text-gray-900">
-                            <div className="text-center p-2">Empleados</div>
+                            <div className="text-center p-2" onClick={change}>Empleados</div>
                         </div>
                         <div className="w-3/4 rounded-2xl shadow-md fondo5 bg-gray-100 dark:bg-gray-600 dark:shadow-md text-center cursor-pointer dark:text-gray-200 text-gray-900">
-                            <div className="text-center p-2">Movimientos</div>
+                            <div className="text-center p-2" onClick={change}>Movimientos</div>
                         </div>
                         <div className="w-3/4 rounded-2xl shadow-md fondo5 bg-gray-100 dark:bg-gray-600 dark:shadow-md text-center cursor-pointer dark:text-gray-200 text-gray-900">
-                            <div className="text-center p-2">Productos</div>
+                            <div className="text-center p-2" onClick={change}>Productos</div>
                         </div>
                     </div>
                 </div>
+                {modal == "" ? (<></>) : (<NewEmpleados handleModal={handleModal} data={props} />)}
             </div>
 
             <div className="xl:hidden  my-10 grid grid-cols-1 justify-self-center">
                 <h5 className="text-center mb-5 font-bold text-2xl">Menu de opciones</h5>
-                <select className="rounded-2xl shadows fondo5 dark:bg-gray-300 dark:shadow-md text-center cursor-pointer text-gray-200 dark:text-gray-900 p-2">
-                    <option>Productos</option>
+                <select value={menuopciones} onChange={change} className="rounded-2xl shadows fondo5 dark:bg-gray-300 dark:shadow-md text-center cursor-pointer text-gray-900 dark:text-gray-200 p-2">
+                    <option >Productos</option>
                     <option>Kardex</option>
                     <option>Empleados</option>
                     <option>Movimientos</option>
@@ -66,7 +95,19 @@ export default function viewTienda(props) {
 
 
             <div className="grid grid-cols-1 shadows dark:shadow-lg rounded-2xl overflow-auto max-h-72">
-                
+
+                {menuopciones == 'Productos' ? <ListProductos shop_id={props.shop.id} /> : (menuopciones == 'Kardex' ? 'KARDEX' : (menuopciones == 'Empleados' ?
+
+                    <>
+
+                        <button onClick={viewModal} className="p-4 ">+</button>
+                        <ListEmpleado shop_id={props.shop.id} />
+                    </>
+
+                    : ''))}
+
+
+
             </div>
         </div>
 

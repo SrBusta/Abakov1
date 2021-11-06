@@ -55,7 +55,7 @@ function LoginForm() {
         } else {
             setForm({ state: 'error', message: resJson.message })
         }
-        console.log(resJson.error)
+
     }
 
     

@@ -38,8 +38,6 @@ export default function confGeneralForm(props) {
 
         const respuestaJson=await res.json();
 
-        console.log(respuestaJson)
-
         router.push('/dashboard')
     }
 

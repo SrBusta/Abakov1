@@ -1,4 +1,5 @@
 
+import InicioEstadistica from '../../components/Dashboard/Index/InicioEstadistica';
 import Sidebar from '../../components/Dashboard/sidebar';
 import VerficacionTokenUsuario from '../../lib/VerficacionTokenUsuario';
 
@@ -21,7 +22,7 @@ export default function inicio({ dataUser, dataShop }) {
                 !------------------------- Tier 1 ---------------------------!
                     */}
                     <div className='border-2 md:col-span-3 col-span-1 shadow-md h-52'>
-                        tier1
+                        <InicioEstadistica />
                     </div>
 
 
@@ -63,13 +64,13 @@ export async function getServerSideProps({ req, res }) {
 
     /*   Verificacion Token Usuario */
     const token = req.cookies.accessToken;
-    const token2 = req.cookies.refreshToken; 
-    VerficacionTokenUsuario(token,token2);
+    const token2 = req.cookies.refreshToken;
+    VerficacionTokenUsuario(token, token2);
 
     /*    Datos generales de User */
     const userRes = await fetch('http://159.223.97.216/api/user', {
         method: 'GET',
-        headers: { accessToken: token, refreshToken: token2 },
+        headers: { accessToken: token, refreshToken: token2 }
 
     })
     const userJson = await userRes.json();
@@ -77,7 +78,7 @@ export async function getServerSideProps({ req, res }) {
     /*    Datos de tiendas de User */
     const shopRes = await fetch('http://159.223.97.216/api/user/shop', {
         method: 'GET',
-        headers: { accessToken: token, refreshToken: token2 },
+        headers: { accessToken: token, refreshToken: token2 }
 
     })
     const shopJson = await shopRes.json();
