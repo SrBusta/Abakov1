@@ -11,7 +11,7 @@ export default function inicio() {
 
     
 
-    const { data, error, mutate } = useSWR(`http://159.223.97.216/api/user`, url=>FetcherGet(url));
+    const { data, error, mutate } = useSWR(`http://localhost/api/user`, url=>FetcherGet(url));
     if(error) return 'Ocurrio un error:'
     if(!data) return 'Loading'
 

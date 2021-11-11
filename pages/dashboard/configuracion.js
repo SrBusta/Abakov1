@@ -12,13 +12,14 @@ export default function configuracion() {
     const fetcher = (url) => {
 
         return fetch(url, {
-            headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') }
+            headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') },
+            credentials: 'include'
         })
             .then(res => res.json())
             .then(json => json.data);
     }
 
-    const { data, error, mutate } = useSWR(`http://159.223.97.216/api/user`, fetcher);
+    const { data, error, mutate } = useSWR(`http://localhost/api/user`, fetcher);
     if(error) return 'Ocurrio un error:'
     if(!data) return 'Loading'
 

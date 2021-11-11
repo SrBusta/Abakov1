@@ -6,7 +6,8 @@ import cookie from 'js-cookie';
 const fetcher = (url) => {
 
     return fetch(url, {
-        headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') }
+        headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') },
+        credentials: 'include'
     })
         .then(res => res.json())
         .then(json => json.data);
@@ -17,7 +18,7 @@ export default function ListEmpleado({ shop_id }) {
 
 
 
-    const { data, error } = useSWR(`http://159.223.97.216/api/user/shop/${shop_id}/employee`, fetcher);
+    const { data, error } = useSWR(`http://localhost/api/user/shop/${shop_id}/employee`, fetcher);
 
 
 

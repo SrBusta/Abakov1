@@ -43,11 +43,11 @@ function RegisterForm() {
 
         } else {
 
-            const res = await fetch('http://159.223.97.216/api/user', {
+            const res = await fetch('http://localhost/api/user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(state),
-                credentials: 'same-origin'
+                credentials: 'include'
             })
 
             const { data, error } = await res.json()

@@ -28,16 +28,16 @@ export default function confGeneralForm(props) {
         event.preventDefault();
 
 
-        const res = await fetch('http://159.223.97.216/api/user', {
+        const res = await fetch('http://localhost/api/user', {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json',accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') },
-            body: JSON.stringify(state)
-
+            body: JSON.stringify(state),
+            credentials:'include'
         })
 
         const respuestaJson=await res.json();
 
-       mutate(`http://159.223.97.216/api/user`)
+       mutate(`http://localhost/api/user`)
        handleSearch()
     }
 

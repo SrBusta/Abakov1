@@ -8,7 +8,7 @@ import FetcherGet from '../../lib/FetcherGet';
 
 export default function productos() {
 
-    const {data,error,mutate}= useSWR(`http://159.223.97.216/api/user`,url=>FetcherGet(url));
+    const {data,error,mutate}= useSWR(`http://localhost/api/user`,url=>FetcherGet(url));
     if(error) return 'ERROR '
     if(!data) return 'Loading'
 
@@ -19,7 +19,7 @@ export default function productos() {
                 <div className='border-2 overflow-scroll'>
 
 
-                    <ListProductos shop_id={'617c2af41713d8d4a2dc1322'}/>
+                    <ListProductos/>
 
 
                 </div>

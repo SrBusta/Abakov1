@@ -8,7 +8,7 @@ import FetcherGet from '../../lib/FetcherGet';
 import CardTiendas from '../../components/Dashboard/Tiendas/cardTiendas';
 
 
-export default function tiendas({ dataShop }) {
+export default function tiendas() {
 
     const [menu, setMenu] = useState("");
 
@@ -28,7 +28,7 @@ export default function tiendas({ dataShop }) {
 
     const viewModal = () => {
         setModal("true")
-        
+
     }
 
 
@@ -36,9 +36,9 @@ export default function tiendas({ dataShop }) {
         setModal("")
     }
 
-    const {data,error} =useSWR('http://159.223.97.216/api/user',url=>FetcherGet(url))
-    if(error) return 'ERROR: '
-    if(!data) return 'Loading'
+    const { data, error } = useSWR('http://localhost/api/user', url => FetcherGet(url))
+    if (error) return 'ERROR: '
+    if (!data) return 'Loading'
 
     return (
         <Sidebar active="Tiendas" color='green' username={data.username}>
@@ -62,7 +62,7 @@ export default function tiendas({ dataShop }) {
                                 </div>
                             ))} */}
 
-                            <CardTiendas/>
+                            <CardTiendas />
 
                             {/* Añadir Tienda **************/}
                             <div className="shadow-md rounded-3xl grid grid-cols-1 justify-self-center w-full">
@@ -73,7 +73,7 @@ export default function tiendas({ dataShop }) {
                                     <span className="font-semibold text-gray-500">Añadir</span>
                                 </div>
                             </div>
-                            {/**************************** */}    
+                            {/**************************** */}
 
                         </div>) : (<div></div>)}
 
@@ -93,27 +93,12 @@ export async function getServerSideProps({ req, res }) {
     const token2 = req.cookies.refreshToken;
     VerficacionTokenUsuario(token, token2);
 
-    /*    Datos generales de User */
-    const userRes = await fetch('http://159.223.97.216/api/user', {
-
-        method: 'GET',
-        headers: { accessToken: token, refreshToken: token2 }
-
-    })
-    const userJson = await userRes.json();
-
-    /*    Datos de tiendas de User */
-    const shopRes = await fetch('http://159.223.97.216/api/user/shop', {
-        method: 'GET',
-        headers: { accessToken: token, refreshToken: token2 }
-    })
-    const shopJson = await shopRes.json();
-
 
     return {
         props: {
-            dataUser: userJson, dataShop: shopJson
+
         }
     }
+
 }
 

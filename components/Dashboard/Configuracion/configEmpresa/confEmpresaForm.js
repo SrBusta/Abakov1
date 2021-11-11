@@ -28,16 +28,17 @@ export default function confEmpresaForm(props) {
         event.preventDefault();
 
 
-        const res = await fetch('http://159.223.97.216/api/user/business', {
+        const res = await fetch('http://localhost/api/user/business', {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json',accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') },
-            body: JSON.stringify(state)
+            body: JSON.stringify(state),
+            credentials:'include'
 
         })
 
         const respuestaJson=await res.json();
         console.log(respuestaJson)
-        mutate(`http://159.223.97.216/api/user`)
+        mutate(`http://localhost/api/user`)
         handleSearch()
     }
 

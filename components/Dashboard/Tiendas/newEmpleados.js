@@ -30,7 +30,7 @@ export default function NewEmpleados({ handleModal, data }) {
         event.preventDefault();
 
 
-        const res = await fetch(`http://159.223.97.216/api/user/shop/${data.shop.id}/employee`, {
+        const res = await fetch(`http://localhost/api/user/shop/${data.shop.id}/employee`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') },
             body: JSON.stringify(employeeState),

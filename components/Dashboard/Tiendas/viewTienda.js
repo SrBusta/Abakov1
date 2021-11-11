@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import ListProductos from '../Productos/listProductos';
+import ListProductos from '../Productos/ListProductos';
 import ListEmpleado from './Empleados/ListEmpleado';
 import NewEmpleados from './newEmpleados';
 

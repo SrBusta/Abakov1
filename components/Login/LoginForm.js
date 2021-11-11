@@ -9,7 +9,7 @@ function LoginForm() {
     
     /*Declaración de los state*/
     const [state,setState] = useState({
-        email: '',
+        username: '',
         password: ''
     })
 
@@ -34,11 +34,11 @@ function LoginForm() {
 
         setForm({ state: 'loading' });
 
-        const res = await fetch('http://159.223.97.216/api/login', {
+        const res = await fetch('http://localhost/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(state),
-            credentials:'same-origin'
+            credentials:'include'
         })
 
         const resJson = await res.json() // capturo los datos que se envia desde el API en formato Json
@@ -68,7 +68,7 @@ function LoginForm() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    <input name="email" onChange={handleChange} className="text-center text-white inline text-base px-4 content-center  py-2 bg-transparent focus:outline-none focus:border-gray-900 placeholder-gray-300" type="email" placeholder="Correo@gmail.com" />
+                    <input name="username" onChange={handleChange} className="text-center text-white inline text-base px-4 content-center  py-2 bg-transparent focus:outline-none focus:border-gray-900 placeholder-gray-300" type="username" placeholder="Nombre de usuario" />
                 </div>
                 <div className="space-y-2 border-b-2 border-white w-full text-center">
                     {/*<label className="mb-5 text-sm font-medium text-white tracking-wide">Contraseña </label>*/}

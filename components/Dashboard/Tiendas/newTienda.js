@@ -51,13 +51,13 @@ export default function newTienda(props) {
             }
         })
 
-        const res = await fetch('http://159.223.97.216/api/user/shop', {
+        const res = await fetch('http://localhost/api/user/shop', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') },
             body: JSON.stringify(state),
             credentials: 'same-origin'
         })
-        mutate('http://159.223.97.216/api/user/shop')
+        mutate('http://localhost/api/user/shop')
         handleModal()
            // router.reload();
     }

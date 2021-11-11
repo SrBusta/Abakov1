@@ -6,7 +6,7 @@ import VerficacionTokenUsuario from '../../../lib/VerficacionTokenUsuario';
 
 import { useState } from 'react'
 import ListEmpleado from "../../../components/Dashboard/Tiendas/Empleados/ListEmpleado";
-import ListProductos from "../../../components/Dashboard/Productos/listProductos";
+import ListProductos from "../../../components/Dashboard/Productos/ListProductos";
 
 export default function OneShop() {
 
@@ -16,7 +16,7 @@ export default function OneShop() {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, error } = useSWR(`http://159.223.97.216/api/user/shop/${id}`, url => FetcherGet(url));
+    const { data, error } = useSWR(`http://localhost/api/user/shop/${id}`, url => FetcherGet(url));
     if (error) return 'Error: '
     if (!data) return 'Loading'
 

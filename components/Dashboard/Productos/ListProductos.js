@@ -5,20 +5,25 @@ import cookie from 'js-cookie';
 
 
 
-export default function ListProductos({shop_id}) {
+export default function ListProductos({ shop_id }) {
 
     const fetcher = (url) => {
 
         return fetch(url, {
-            headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') }
+            headers: {
+                accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken')
+            },
+            credentials: 'include'
         })
             .then(res => res.json())
             .then(json => json.data);
-    
+
     }
 
-    const { data, error } = useSWR(`http://159.223.97.216/api/user/shop/${shop_id}/product`, fetcher);
-    
+    console.log(shop_id);
+
+    const { data, error } = useSWR(!shop_id ? `http://localhost/api/user/product` : `http://localhost/api/user/shop/${shop_id}/product`, fetcher);
+
 
 
     return (<>
@@ -92,8 +97,8 @@ export default function ListProductos({shop_id}) {
                             ))
                             :
                             <tr colSpan="10">
-                                
-                                <th  colSpan="10" className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700 ">
+
+                                <th colSpan="10" className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700 ">
                                     NO HAY PRODUCTOS
                                 </th>
 
