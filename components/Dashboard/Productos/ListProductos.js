@@ -3,26 +3,22 @@ import cookie from 'js-cookie';
 
 
 
-const fetcher = (url) => {
 
-    return fetch(url, {
-        headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') }
-    })
-        .then(res => res.json())
-        .then(json => json.data);
-
-}
 
 export default function ListProductos({shop_id}) {
 
+    const fetcher = (url) => {
+
+        return fetch(url, {
+            headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') }
+        })
+            .then(res => res.json())
+            .then(json => json.data);
     
+    }
 
     const { data, error } = useSWR(`http://159.223.97.216/api/user/shop/${shop_id}/product`, fetcher);
-
-
-
-
-
+    
 
 
     return (<>
@@ -61,10 +57,6 @@ export default function ListProductos({shop_id}) {
 
 
                     {
-
-
-
-
                         data && data.length > 0 ?
 
 

@@ -26,43 +26,46 @@ function RegisterForm() {
             ...prevState,
             [name]: value
         }))
+
     }
+
+
 
     const handleSubmit = async event => {
         event.preventDefault();
         setForm({ state: 'loading' });
 
+    
+        if (state.password != state.Rpassword) {
 
-        const res = await fetch('http://159.223.97.216/api/user', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(state),
-            credentials:'same-origin'
-        })
+            setForm({ state: 'error', message: 'ERROR - Las constraseñas no coinciden' })
+            return false
 
-        
-        const { data, error } = await res.json()
-
-
-
-
-        
-
-        if (error) {
-            setForm({ state: 'error', message: 'ERROR - Revise los datos' })
         } else {
-            setForm({ state: 'success', message: 'Registro con éxito' })
-            //router.push('/login')
-            setModal(true)
+
+            const res = await fetch('http://159.223.97.216/api/user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(state),
+                credentials: 'same-origin'
+            })
+
+            const { data, error } = await res.json()
+
+            if (error) {
+                setForm({ state: 'error', message: 'ERROR - Revise los datos' })
+            } else {
+                setForm({ state: 'success', message: 'Registro con éxito' })
+               // router.push('/login')
+                setModal(true)
+            }
         }
-        
+
     }
 
-    
-
-        const closeModal = () => {
-            setModal(false)
-        }
+    const closeModal = () => {
+        setModal(false)
+    }
 
 
     return (
@@ -104,14 +107,14 @@ function RegisterForm() {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                         </svg>
-                        <input required onChange={handleChange} className="text-center text-white inline text-base px-10 py-2 bg-transparent focus:outline-none focus:border-gray-900 placeholder-gray-300" name="password" type="password" placeholder="Ingrese Contraseña" />
+                        <input required onChange={handleChange} id="password" className="text-center text-white inline text-base px-10 py-2 bg-transparent focus:outline-none focus:border-gray-900 placeholder-gray-300" name="password" type="password" placeholder="Ingrese Contraseña" />
                     </div>
                     {/* Repetir Contraseña */}
                     <div className="space-y-2 border-b-2 border-white w-full">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                         </svg>
-                        <input required className="text-center text-white inline text-base px-10 py-2 bg-transparent focus:outline-none focus:border-gray-900 placeholder-gray-300" type="password" placeholder="Repita Contraseña" />
+                        <input required onChange={handleChange} id="Rpassword" className="text-center text-white inline text-base px-10 py-2 bg-transparent focus:outline-none focus:border-gray-900 placeholder-gray-300" type="password" placeholder="Repita Contraseña" name="Rpassword" />
                     </div>
                     {form.state == 'error' ? (
                         <ul className="pt-2 text-center text-red-800 grid grid-cols-1 text-xm">
@@ -130,8 +133,8 @@ function RegisterForm() {
                     </div>
 
                 </div>
-            </div>  
-            <RegisterModal closeModal={closeModal} data={modal}/>
+            </div>
+            <RegisterModal closeModal={closeModal} data={modal} login={state} />
         </form>
     );
 

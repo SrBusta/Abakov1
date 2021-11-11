@@ -1,18 +1,17 @@
 import router from 'next/router';
 import {useState} from 'react';
-
+import {mutate} from 'swr';
+import cookie from 'js-cookie';
 
 export default function confGeneralForm(props) {
    
-    const token=props.data.atoken
-    const token2=props.data.rtoken
 
     const [state,setState]=useState({
 
-        firstName: props.data.data.data.firstName,
-        lastName: props.data.data.data.lastName,
-        username: props.data.data.data.username,
-        email: props.data.data.data.email
+        firstName: props.data.firstName,
+        lastName: props.data.lastName,
+        username: props.data.username,
+        email: props.data.email
     }
     );
 
@@ -31,14 +30,15 @@ export default function confGeneralForm(props) {
 
         const res = await fetch('http://159.223.97.216/api/user', {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json',accessToken: token, refreshToken: token2 },
+            headers: { 'Content-Type': 'application/json',accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') },
             body: JSON.stringify(state)
 
         })
 
         const respuestaJson=await res.json();
 
-        router.push('/dashboard')
+       mutate(`http://159.223.97.216/api/user`)
+       handleSearch()
     }
 
     const { handleSearch } = props
@@ -73,7 +73,7 @@ export default function confGeneralForm(props) {
                 </div>
                 <div className="xl:col-start-2 col-start-1 grid grid-cols-2 gap-2">
                     <button type="submit" className=" bg-gray-300  hover:bg-gray-700 hover:text-gray-200 text-gray-700 p-2 rounded-md  tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-300">
-                        Guardar
+                        Guardar 
                     </button>
                     <button className=" bg-gray-300  hover:bg-gray-700 hover:text-gray-200 text-gray-700 p-2  rounded-md tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-300"
                         onClick={handleSearch}

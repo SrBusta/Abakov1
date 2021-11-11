@@ -15,7 +15,7 @@ const Register = () => {
                 <div className="min-h-screen grid grid-cols-2 mx-0 justify-center test2 ">
                     <div className="justify-self-center self-center text-right p-10 sm:max-w-5xl xl:max-w-2xl z-10 hidden lg:flex" >
                         <div className="self-start  text-gray-200">
-                            <h1 className="mb-3 brightness-90 text-5xl font-test"><img src='/logo.png' width='150'/><h1>ABAKO</h1></h1>
+                            <span className="mb-3 brightness-90 text-5xl font-test"><img src='/logo.png' width='150'/><span>ABAKO</span></span>
                         </div>
                     </div>
                     <div className=" justify-self-center self-center z-10 col-span-2 lg:col-span-1">

@@ -8,10 +8,10 @@ export default function configuracionGeneral(props) {
     const btnEditar = () => {
         setEdit({ state: 'onEmpresa' })
         window.setTimeout(() => {
-            document.getElementById("firstname").value = props.data.data.firstName
-            document.getElementById("lastname").value = props.data.data.lastName
-            document.getElementById("user").value = props.data.data.username
-            document.getElementById("email").value = props.data.data.email
+            document.getElementById("firstname").value = props.data.firstName
+            document.getElementById("lastname").value = props.data.lastName
+            document.getElementById("user").value = props.data.username
+            document.getElementById("email").value = props.data.email
         }, 1)
     }
     const handleSearch = () => {
@@ -25,6 +25,6 @@ export default function configuracionGeneral(props) {
                 <a className="cursor-pointer hover:text-gray-300 dark:hover:text-gray-900" onClick={btnEditar}>Editar</a>
             </div>
         </div>
-       {editg.state == 'off' ? (<GeneralContent data={props} />) : (<GeneralForm data={props} handleSearch={handleSearch} />)}
+       {editg.state == 'off' ? (<GeneralContent data={props.data} />) : (<GeneralForm data={props.data} handleSearch={handleSearch} />)}
     </div>)
 }

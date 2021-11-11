@@ -10,7 +10,8 @@ export default function registerModal(props) {
    
     const cerrar = () =>{
         const {closeModal}=props
-        router.push('/login')
+
+        router.replace({ pathname:'/register/confempresa',query:props.login})
 
     }
     return (<>

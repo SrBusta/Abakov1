@@ -1,22 +1,28 @@
+import Link from 'next/link';
+import useSWR from 'swr';
+import FetcherGet from '../../../lib/FetcherGet';
 
 
-export default function cardTiendas({name,address,phone}) {
+export default function cardTiendas() {
 
-
+    const { data, error, mutate } = useSWR('http://159.223.97.216/api/user/shop', url => FetcherGet(url));
+    if (error) return 'Error: '
+    if (!data) return 'Loading'
+    console.log(data[0].phone[0].number)
     return (<>
-        <div className="w-64 overflow-hidden shadow-lg rounded-3xl justify-self-center">
-            <img className="cursor-pointer" src="/edited2.png" alt="Sunset in the mountains"  width="300"
-          height="300" />
-            <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{name}</div>
-                <p className="text-gray-200 dark:text-gray-900 text-base">
-                    {address}
-                    
-                    {phone}
-                </p>
+        {data.map(shops => (
+            <div className="shadow-md rounded-3xl justify-self-center w-full" key={shops._id}>
+              <Link href={`/dashboard/tiendas/${shops._id}`}><a href=''> <img className="cursor-pointer bg-cover bg-center w-full rounded-t-3xl" src="../../../edited2.png" alt="Sunset in the mountains" width="300"
+                    height="300" /></a></Link> 
+                <div className="px-6 py-4">
+                    <div className="font-bold text-xl mb-2">{shops.name}</div>
+                    <span className="dark:text-gray-200 text-gray-900 text-base">
+                        <p>{shops.address}</p>
+                        <div>{shops.phone[0]?<div>{shops.phone[0].number}</div>:<div></div>}</div>
+                    </span>
+                </div>
             </div>
-
-        </div>
+        ))}
 
     </>)
 }

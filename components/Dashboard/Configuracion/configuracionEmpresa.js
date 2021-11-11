@@ -9,9 +9,9 @@ export default function configuracionEmpresa(props) {
     const btnEditar = () => {
         setEdit({ state: 'onEmpresa' })
         window.setTimeout(() => {
-            document.getElementById("name").value = props.data.data.business.name
-            document.getElementById("ruc").value = props.data.data.business.ruc
-            document.getElementById("description").value = props.data.data.business.description
+            document.getElementById("name").value = props.data.business.name
+            document.getElementById("ruc").value = props.data.business.ruc
+            document.getElementById("description").value = props.data.business.description
         }, 1)
     }
     const handleSearch = () => {
@@ -27,7 +27,7 @@ export default function configuracionEmpresa(props) {
                     <a className="cursor-pointer hover:text-gray-900 dark:hover:text-gray-200" onClick={btnEditar}>Editar</a>
                 </div>
             </div>
-            {edit.state == 'off' ? (<ContenidoEmpresa data={props} />) : (<FormularioEmpresa data={props} handleSearch={handleSearch} />)}
+            {edit.state == 'off' ? (<ContenidoEmpresa data={props.data} />) : (<FormularioEmpresa data={props.data} handleSearch={handleSearch} />)}
         </div>
     </>)
 }

@@ -2,16 +2,22 @@
 import InicioEstadistica from '../../components/Dashboard/Index/InicioEstadistica';
 import Sidebar from '../../components/Dashboard/sidebar';
 import VerficacionTokenUsuario from '../../lib/VerficacionTokenUsuario';
+import useSWR from 'swr';
+import InicioTienda from '../../components/Dashboard/Index/InicioTienda';
+import FetcherGet from '../../lib/FetcherGet';
 
 
+export default function inicio() {
 
-export default function inicio({ dataUser, dataShop }) {
+    
 
+    const { data, error, mutate } = useSWR(`http://159.223.97.216/api/user`, url=>FetcherGet(url));
+    if(error) return 'Ocurrio un error:'
+    if(!data) return 'Loading'
 
     return (
 
-        <Sidebar active='Inicio' color='red' username={dataUser.data.username} >
-
+        <Sidebar active='Inicio' color='red' username={data.username}  >
 
             <div className='flex-1 md:py-10 md:px-20 p-10 mb-10'>
 
@@ -31,13 +37,7 @@ export default function inicio({ dataUser, dataShop }) {
                     */}
                     <div className='border-2 shadow-md p-2 overflow-hidden overflow-y-scroll h-52'>
 
-                        {dataShop.data.map(shops => (
-                            <div key={shops._id}>
-                                {shops.name}
-                                {shops._id}
-                                {shops.address}
-                            </div>
-                        ))}
+                        <InicioTienda/>
 
                     </div>
 
@@ -67,28 +67,9 @@ export async function getServerSideProps({ req, res }) {
     const token2 = req.cookies.refreshToken;
     VerficacionTokenUsuario(token, token2);
 
-    /*    Datos generales de User */
-    const userRes = await fetch('http://159.223.97.216/api/user', {
-        method: 'GET',
-        headers: { accessToken: token, refreshToken: token2 }
-
-    })
-    const userJson = await userRes.json();
-
-    /*    Datos de tiendas de User */
-    const shopRes = await fetch('http://159.223.97.216/api/user/shop', {
-        method: 'GET',
-        headers: { accessToken: token, refreshToken: token2 }
-
-    })
-    const shopJson = await shopRes.json();
-
-
-
 
     return {
         props: {
-            dataUser: userJson, dataShop: shopJson
         }
     }
 }

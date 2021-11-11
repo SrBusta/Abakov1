@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import cookie from 'js-cookie';
-import router from 'next/router';
+import {mutate} from 'swr';
 
 export default function newTienda(props) {
 
@@ -57,7 +57,9 @@ export default function newTienda(props) {
             body: JSON.stringify(state),
             credentials: 'same-origin'
         })
-            router.push('/dashboard')
+        mutate('http://159.223.97.216/api/user/shop')
+        handleModal()
+           // router.reload();
     }
             
 
@@ -87,12 +89,12 @@ export default function newTienda(props) {
                             className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
                               text-gray-600 placeholder-gray-400 outline-none"></input>
                     </div>
-                    <div className="flex items-center mb-5">
+                    {/* <div className="flex items-center mb-5">
                         <label htmlFor="name" className="inline-block w-20 mr-6 text-right font-bold dark:text-white text-gray-600">Imagen</label>
                         <input type="file" id="123" name="123" placeholder="Imagen"
                             className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
                               text-gray-600 placeholder-gray-400 outline-none"></input>
-                    </div>
+                    </div> */}
 
                     <div className="text-right mx-2">
                         <button className="py-3 px-8 bg-green-400 text-white font-bold mx-2" type='submit' >Agregar</button>

@@ -2,16 +2,28 @@ import Sidebar from '../../components/Dashboard/sidebar';
 import VerficacionTokenUsuario from '../../lib/VerficacionTokenUsuario';
 import ConfigGeneral from '../../components/Dashboard/Configuracion/configuracionGeneral'
 import ConfigEmpresa from '../../components/Dashboard/Configuracion/configuracionEmpresa'
+import useSWR from 'swr';
+import cookie from 'js-cookie';
 
 
 
+export default function configuracion() {
 
-export default function configuracion({ dataUser,Atoken,Rtoken }) {
+    const fetcher = (url) => {
 
+        return fetch(url, {
+            headers: { accessToken: cookie.get('accessToken'), refreshToken: cookie.get('refreshToken') }
+        })
+            .then(res => res.json())
+            .then(json => json.data);
+    }
 
+    const { data, error, mutate } = useSWR(`http://159.223.97.216/api/user`, fetcher);
+    if(error) return 'Ocurrio un error:'
+    if(!data) return 'Loading'
 
     return (
-        <Sidebar active="Config" color='blue' username={dataUser.data.username}>
+        <Sidebar active="Config" color='blue' username={data.username}>
             <div className="grid xl:grid-cols-2 gap-4 grid-cols-1 mx-8 mt-6 xl:mb-0 mb-20">
                 <div className="xl:col-span-2 justify-center items-center justify-self-center">
                     <div className="justify-center flex">
@@ -24,10 +36,10 @@ export default function configuracion({ dataUser,Atoken,Rtoken }) {
                             </svg>
                         </div>
                     </div>
-                    <div className="text-3xl font-bold text-black dark:text-white text-center">{dataUser.data.firstName} {dataUser.data.lastName}</div>
+                    <div className="text-3xl font-bold text-black dark:text-white text-center">{data.firstName} {data.lastName}</div>
                 </div>
-                <ConfigGeneral data={dataUser} atoken={Atoken} rtoken={Rtoken}/>
-                <ConfigEmpresa data={dataUser} atoken={Atoken} rtoken={Rtoken}/>
+                <ConfigGeneral data={data}/>
+                <ConfigEmpresa data={data}/>
             </div>
         </Sidebar>
     )
@@ -40,18 +52,8 @@ export async function getServerSideProps({ req, res }) {
     const token2 = req.cookies.refreshToken;
     VerficacionTokenUsuario(token, token2);
 
-    /*    Datos generales de User */
-    const userRes = await fetch('http://159.223.97.216/api/user', {
-        
-        method: 'GET',
-        headers: { accessToken: token, refreshToken: token2 }
-
-    })
-    const userJson = await userRes.json();
-
     return {
         props: {
-            dataUser: userJson, Atoken:token, Rtoken:token
         }
     }
 }
